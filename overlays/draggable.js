@@ -15,9 +15,9 @@ class Draggable extends Component {
 			left:props.defaultLeft || 0,
 			top:props.defaultTop || 0,
 			isDragging:false,
+			dragMoving:false,
 			isClick:true,
 		};
-		this.test = this.test.bind(this);
 		this.startDrag = this.startDrag.bind(this);
 		this.dragMove = this.dragMove.bind(this);
 		this.endDrag = this.endDrag.bind(this);
@@ -51,21 +51,47 @@ class Draggable extends Component {
 	}
 	dragMove(e) {
 		let _this = this;
-		if (!_this.state.isDragging) {
+		let {isDragging,dragMoving,defaultLeft,defaultTop} = _this.state;
+		let {onStart,onDrag} = _this.props;
+		if (!isDragging) {
 			return;
 		}
+
+		let next = {
+			left:(defaultLeft || 0) + e.clientX - _this.state.startLeft,
+			top:(defaultTop || 0) + e.clientY - _this.state.startTop,
+		};
+
+		if (dragMoving) {
+			(onDrag instanceof Function) && onDrag(next,e);
+		} else {
+			(onStart instanceof Function) && onStart({
+				left:defaultLeft,
+				top:defaultTop
+			},e);
+		}
+
 		let pos = {
-			left:(_this.state.defaultLeft || 0) + e.clientX - _this.state.startLeft,
-			top:(_this.state.defaultTop || 0) + e.clientY - _this.state.startTop,
-			isClick:false
+			...next,
+			isClick:false,
+			dragMoving:true
 		};
 		_this.setState(pos);
 	}
 	endDrag(e) {
-		this.setState({
+		let _this = this;
+		let { left,top,isClick } = _this.state;
+		let { onStop } = _this.props;
+		_this.setState({
 			isDragging:false,
-			defaultLeft:this.state.left,
-			defaultTop:this.state.top
+			dragMoving:false,
+			isClick:false,
+			defaultLeft:left,
+			defaultTop:top
+		},function () {
+			if (!isClick) {
+				(onStop instanceof Function) && onStop({left,top},e);
+			}
 		});
 	}
 	render() {

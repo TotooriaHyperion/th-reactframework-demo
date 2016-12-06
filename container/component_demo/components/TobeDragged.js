@@ -45,6 +45,15 @@ class Dragged extends Component {
 				<Modal ref="modal"
 						 show={show}
 						 dialogComponentClass={Draggable}
+						 onStart={function (p,e) {
+							 console.log("Start drag at:" + JSON.stringify(p));
+						 }}
+						 onDrag={function (p,e) {
+							 console.log("Dragging:" + JSON.stringify(p));
+						 }}
+						 onStop={function (p,e) {
+							 console.log("Stop drag at:" + JSON.stringify(p));
+						 }}
 						 className="modal dialogTest"
 						 backdrop={false}
 						 draggedClassName="modal-content drag1"
