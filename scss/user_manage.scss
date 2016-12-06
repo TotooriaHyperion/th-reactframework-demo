@@ -1,0 +1,13 @@
+.form-control-wrap {
+	line-height: 40px;
+	.control-label,.control-body {
+		padding: 0;
+	}
+	.control-label {
+		text-align: right;
+	}
+	&.required .control-body:before {
+		right: 190px;
+		top: 6px;
+	}
+}

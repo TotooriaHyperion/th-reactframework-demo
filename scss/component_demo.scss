@@ -1,0 +1,46 @@
+.component_demo {
+	h4 {
+		width: 100%;
+		margin-top: 20px;
+	}
+	.form-control-wrap,h4 {
+		float: left;
+	}
+	.form-control-wrap {
+		&.th_select {
+			width: 50%;
+		}
+		&.th_checkbox,&.th_radio {
+			width: 25%;
+		}
+		&.th_checkbox {
+			.th_custom_checkbox {
+				label {
+					line-height: 33px;
+				}
+			}
+		}
+		&.th_radio {
+			.th_custom_radio {
+				label {
+					line-height: 33px;
+				}
+			}
+		}
+		.checkbox,.radio {
+			margin: 0;
+		}
+	}
+}
+
+.dialogTest {
+	position: fixed;
+	top: 0;
+	display: block;
+	z-index: 1050;
+}
+
+.drag1 {
+	width: 600px;
+	//height: 600px;
+}

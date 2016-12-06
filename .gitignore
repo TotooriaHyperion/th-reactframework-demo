@@ -1,0 +1,5 @@
+node_modules/
+publish/publish/*
+.idea/
+npm-debug.log
+!publish/publish/lib/
